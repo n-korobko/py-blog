@@ -9,7 +9,6 @@ class User(AbstractUser):
         return self.username
 
 
-
 class Post(models.Model):
     owner = models.ForeignKey(
         "User",
