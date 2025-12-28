@@ -1,3 +1,6 @@
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +12,7 @@
 <h1>{{ post.title }}</h1>
 
 <p>
-    Author: {{ post.author }} |
+    Author: {{ post.owner }} |
     Created: {{ post.created_time }}
 </p>
 
@@ -22,7 +25,7 @@
 {% for comment in post.comments.all %}
     <div>
         <p>
-            <strong>{{ comment.author }}</strong>
+            <strong>{{ comment.user }}</strong>
             ({{ comment.created_time }})
         </p>
         <p>{{ comment.content }}</p>
@@ -39,7 +42,7 @@
 {% if user.is_authenticated %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button type="submit">Add comment</button>
     </form>
 {% else %}
